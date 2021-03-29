@@ -14,8 +14,20 @@ def get_titles_from_search_results(filename):
 
     [('Book title 1', 'Author 1'), ('Book title 2', 'Author 2')...]
     """
+    lst = []
+    f = open(filename)
+    soupobj = BeautifulSoup(f, "html.parser")
+    f.close()
+    anchor = soup.find("div", class_= "mainContentContainer")
+    books = div.find_all("tr")
+    for book in books:
+        a1 = book.find("a", class_="bookTitle")
+        title = a1.find("span").text
+        a2 = book.find("a", class_="authorName")
+        author = a2.find("span").text
+        lst.append((title,author))
 
-    pass
+    return lst
 
 
 def get_search_links():
